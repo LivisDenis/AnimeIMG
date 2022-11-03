@@ -32,7 +32,7 @@ const App = () => {
         setIsLoading(true)
         axios.get(`https://api.waifu.im/random/${selectedTag}`)
             .then(res => setAnime(res.data))
-            .then(() => setTimeout(() => setIsLoading(false), 1000))
+            .then(() => setTimeout(() => setIsLoading(false), 300))
             .catch(err => console.log(err))
     }
 
@@ -48,7 +48,7 @@ const App = () => {
         <div>
             <div className={styles.random__change}>
                 <select className="form-select" onChange={onChangeSelect} aria-label="Default select example">
-                    <option>Open this select menu</option>
+                    <option value=''>Random</option>
                     {animeTags.map((tag, i) =>
                         <option key={i} value={tag}>{tag}</option>
                     )}
