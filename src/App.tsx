@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
+import {RingLoader} from "react-spinners";
 import axios from "axios";
 import styles from './styles/style.module.scss'
 import './styles/App.css'
-import {RingLoader} from "react-spinners";
 
 type animeData = {
     image_id: number
@@ -26,11 +26,11 @@ const App = () => {
     const [anime, setAnime] = useState<animeType>()
     const [tag, setTag] = useState<string | undefined>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const selectedTag = tag ? `?selected_tags=${tag}` : ''
+    const selectedTag = tag ? `?included_tags=${tag}` : ''
 
     const onClickRandom = () => {
         setIsLoading(true)
-        axios.get(`https://api.waifu.im/random/${selectedTag}`)
+        axios.get(process.env.REACT_APP_API_URL + selectedTag)
             .then(res => setAnime(res.data))
             .then(() => setTimeout(() => setIsLoading(false), 300))
             .catch(err => console.log(err))
